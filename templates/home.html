@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management API</title>
+    <style>
+        :root {
+            --bg: #f7f9fc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #4b5563;
+            --accent: #2563eb;
+            --accent-2: #0ea5e9;
+            --border: #e5e7eb;
+            --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #f0f4ff 0%, #f7f9fc 60%, #fdfefe 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .layout {
+            width: min(1100px, 100%);
+        }
+        .hero {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 28px 28px 20px;
+            box-shadow: var(--shadow);
+        }
+        .hero-title {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin: 0 0 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .badge {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            margin: 0 0 16px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+            margin-top: 10px;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            box-shadow: var(--shadow);
+            transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: #cbd5e1;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+        }
+        .card h3 {
+            margin: 0 0 6px;
+            font-size: 16px;
+        }
+        .card p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 14px;
+        }
+        .card a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .card a:hover { text-decoration: underline; }
+        .footer {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        @media (max-width: 600px) {
+            .hero { padding: 22px 20px 16px; }
+            .hero-title { font-size: 24px; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="hero">
+            <div class="hero-title">
+                <span>Event Management API</span>
+                <span class="badge">Django + DRF</span>
+            </div>
+            <p class="subtitle">
+                Minimal UI to guide HR/reviewers: explore the browsable API, access admin, and obtain JWT tokens for authenticated endpoints.
+            </p>
+            <div class="grid">
+                <div class="card">
+                    <h3>API Root</h3>
+                    <p>Browse available endpoints via Django REST Framework UI.</p>
+                    <a href="/api/">Open /api/</a>
+                </div>
+                <div class="card">
+                    <h3>Admin Panel</h3>
+                    <p>Manage users, events, RSVPs, and reviews (login required).</p>
+                    <a href="/admin/">Open /admin/</a>
+                </div>
+                <div class="card">
+                    <h3>Get JWT Token</h3>
+                    <p>POST your username/password to obtain an access token.</p>
+                    <a href="/api/auth/token/">Open /api/auth/token/</a>
+                </div>
+                <div class="card">
+                    <h3>Events Endpoint</h3>
+                    <p>List, create, and manage events (auth required for write).</p>
+                    <a href="/api/events/">Open /api/events/</a>
+                </div>
+            </div>
+            <div class="footer">
+                Tip: create a superuser with <code>python manage.py createsuperuser</code> to log into admin and test JWT.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
