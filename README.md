@@ -1,60 +1,57 @@
 # Event Management System (Django + DRF)
 
-Event Management API implementing JWT auth, custom permissions, RSVPs, and reviews. Built for internship assignment.
+Event Management API with JWT auth, organizer permissions, RSVPs, and reviews.
 
 ## Features
-- JWT authentication using `djangorestframework-simplejwt`.
-- Event CRUD with organizer-only edits/deletes.
-- Private event visibility restricted to invitees.
-- RSVPs (Going/Maybe/Not Going) per event.
-- Reviews with rating validation.
-- Pagination, search, and filtering.
-- Celery task stub for async email notifications (Redis broker).
+- JWT auth (SimpleJWT)
+- Event CRUD (organizer-only edits/deletes; private events limited to invitees)
+- RSVPs (Going/Maybe/Not Going)
+- Reviews with rating validation
+- Pagination, search, filtering
+- Optional Celery task stub for async emails
 
-## Quickstart
+## Setup
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
-pip install -r requirements.txt  # if present, else install deps from settings
+pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
 
-### Obtain JWT
-1. Create a user (via `createsuperuser` or admin).
-2. `POST /api/auth/token/` with `username` and `password`.
-3. Use `Authorization: Bearer <access>` for subsequent requests.
+## Auth (JWT)
+1) Create user (`python manage.py createsuperuser` or via admin).
+2) POST `/api/auth/token/` with `{"username": "...", "password": "..."}`.
+3) Use `Authorization: Bearer <access>` for protected endpoints.
 
-## API Highlights
-- `POST /api/events/` (auth): create event.
-- `GET /api/events/`: list public events (+ private ones you organize/are invited to).
-- `GET /api/events/{id}/`: event detail (private visibility enforced).
-- `PUT/PATCH/DELETE /api/events/{id}/`: organizer only.
-- `POST /api/events/{event_id}/rsvp/`: RSVP to event (invite required for private).
-- `PATCH /api/events/{event_id}/rsvp/{rsvp_id}/`: update RSVP (self or staff).
-- `POST /api/events/{event_id}/reviews/`: add review (invite required for private).
-- `GET /api/events/{event_id}/reviews/`: list reviews.
+## Key Endpoints
+- Events: `GET/POST /api/events/`, `GET/PUT/PATCH/DELETE /api/events/{id}/`
+- RSVP: `POST /api/events/{event_id}/rsvp/`, `PATCH /api/events/{event_id}/rsvp/{rsvp_id}/`
+- Reviews: `GET/POST /api/events/{event_id}/reviews/`
+- Admin: `/admin/`
 
-Filtering/search: `?search=music&location=NYC&ordering=start_time`.
+Search/filter example: `/api/events/?search=music&location=NYC&ordering=start_time`
 
-## Celery (optional bonus)
-Start Redis locally, then run:
+## Optional: Celery
+Requires Redis running locally.
 ```bash
 celery -A core worker --loglevel=info
 ```
-Task example:
 ```python
 from events.tasks import send_event_notification
 send_event_notification.delay("Hello", "Body", "test@example.com")
 ```
-
-## Running tests
+## Tests
 ```bash
 .venv\Scripts\activate
 python manage.py test
 ```
-
+## Screenshots
+   ![Home Page](docs/screenshots/home.png)
+   ![API Root](docs/screenshots/apiroot.png)
+   ![Admin Panel](docs/screenshots/adminpanel.png)
+   ![JWT Token](docs/screenshots/jwttoken.png)
+   ![Events](docs/screenshots/events.png)
 ## Notes
-- Email backend is console for local dev.
-- Uses SQLite by default; swap `DATABASES` in `core/settings.py` for production.
-
+- Email backend: console (development).
+- Default DB: SQLite (change in `core/settings.py` if needed).
