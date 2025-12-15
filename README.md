@@ -52,6 +52,7 @@ python manage.py test
 ![Events List](screenshots/events.png)
 ![Admin Panel](screenshots/adminpanel.png)
 ![JWT Token](screenshots/jwttoken.png)
+![Home](screenshots/home.png)
 ## Notes
 - Email backend: console (development).
 - Default DB: SQLite (change in `core/settings.py` if needed).
