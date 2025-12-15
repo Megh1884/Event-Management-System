@@ -47,11 +47,11 @@ send_event_notification.delay("Hello", "Body", "test@example.com")
 python manage.py test
 ```
 ## Screenshots
-   ![Home Page](docs/screenshots/home.png)
-   ![API Root](docs/screenshots/apiroot.png)
-   ![Admin Panel](docs/screenshots/adminpanel.png)
-   ![JWT Token](docs/screenshots/jwttoken.png)
-   ![Events](docs/screenshots/events.png)
+
+![API Root](screenshots/apiroot.png)
+![Events List](screenshots/events.png)
+![Admin Panel](screenshots/adminpanel.png)
+![JWT Token](screenshots/jwttoken.png)
 ## Notes
 - Email backend: console (development).
 - Default DB: SQLite (change in `core/settings.py` if needed).
